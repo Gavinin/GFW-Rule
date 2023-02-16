@@ -1,0 +1,11 @@
+payload:
+  - '+.gov.hk'
+  # MS
+  - '+.microsoft.com'
+  - '+.live.com'
+  - 'outlook.com'
+  - '+.bing.com'
+  - '+.bing.net'
+  #Google
+  - 'googleapis.com'
+  - 'wikipedia.org'
