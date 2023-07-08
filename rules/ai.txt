@@ -1,0 +1,4 @@
+payload:
+  - '+.openai.com'
+  - '+.cloudflare.com'
+  - '+.auth0.com'
