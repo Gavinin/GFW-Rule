@@ -2,3 +2,7 @@ payload:
   - '+.openai.com'
   - '+.cloudflare.com'
   - '+.auth0.com'
+  - '+.anthropic.com'
+  - '+.claude.ai'
+  - '+.intercom.io'
+  - '+.usefathom.com'
