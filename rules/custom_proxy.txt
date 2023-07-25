@@ -1,5 +1,4 @@
 payload:
-  - '+.gov.hk'
   - '+.microsoft.com'
   - '+.live.com'
   - '+.outlook.com'
