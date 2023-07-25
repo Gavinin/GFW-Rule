@@ -1,2 +1,4 @@
 payload:
   - '+.netflix.com'
+  - '+.nflxvideo.net'
+  - '+.nflxso.net'

@@ -1,0 +1,4 @@
+# custom_direct
+DOMAIN-SUFFIX,push.apple.com
+DOMAIN-SUFFIX,ess.apple.com
+DOMAIN-SUFFIX,gavinin.space

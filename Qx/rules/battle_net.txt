@@ -1,0 +1,8 @@
+# battle.net
+DOMAIN-SUFFIX,battle.net
+DOMAIN-SUFFIX,footprint.net
+DOMAIN-SUFFIX,blz-contentstack-images.akamaized.net
+DOMAIN-SUFFIX,braze.com
+DOMAIN-SUFFIX,blizzard.com
+DOMAIN-SUFFIX,blz-contentstack.com
+

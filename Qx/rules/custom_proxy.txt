@@ -1,0 +1,8 @@
+# custom_proxy
+  DOMAIN-SUFFIX,microsoft.com
+  DOMAIN-SUFFIX,live.com
+  DOMAIN-SUFFIX,outlook.com
+  DOMAIN-SUFFIX,bing.com
+  DOMAIN-SUFFIX,bing.net
+  DOMAIN-SUFFIX,googleapis.com
+  DOMAIN-SUFFIX,wikipedia.org

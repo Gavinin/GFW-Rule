@@ -1,0 +1,8 @@
+# AI
+DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,cloudflare.com
+DOMAIN-SUFFIX,auth0.com
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,intercom.io
+DOMAIN-SUFFIX,usefathom.com
