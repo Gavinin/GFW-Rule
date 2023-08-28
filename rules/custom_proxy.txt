@@ -6,3 +6,4 @@ payload:
   - '+.bing.net'
   - '+.googleapis.com'
   - '+.wikipedia.org'
+  _ '+.itunes.apple.com'
