@@ -1,5 +1,5 @@
 parsers: # array
-  - reg: ^.*$
+  - reg: '^.*$'
   # 删除服务商提供的策略组和规则
     code: |
       module.exports.parse = (raw, { yaml }) => {
@@ -11,58 +11,57 @@ parsers: # array
   # 建立自己的配置
     yaml:
       prepend-proxy-groups: # 建立策略组
-        - name: 🪄 代理模式 
-          type: select
+        - name: 🇭🇰 HK_NG_LB
+          type: load-balance
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: 🇭🇰 HK_LB 
+          type: load-balance
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: 🇸🇬 SG_LB
+          type: load-balance
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: 🇺🇸 US
+          type: url-test
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: 🇯🇵 JP 
+          type: load-balance
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: 🇰🇷 KR_LB
+          type: load-balance
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: 🇹🇼 TW 
+          type: load-balance
+          url: http://www.gstatic.com/generate_204
+          interval: 60
+
+        - name: Ad Block
+          type: fallback
+          url: http://www.gstatic.com/generate_204
+          interval: 86400000
           proxies:
-            - 绕过大陆丨黑名单(GFWlist) # 黑名单模式，意为「只有命中规则的网络流量，才使用代理」
-            - 绕过大陆丨白名单(Whitelist) # 白名单模式，意为「没有命中规则的网络流量，统统使用代理」
-            
-        - name: 🇭🇰 香港节点 
-          type: url-test
-          url: http://www.gstatic.com/generate_204
-          interval: 60
-
-        - name: 🇸🇬 新加坡节点 
-          type: url-test
-          url: http://www.gstatic.com/generate_204
-          interval: 60
-
-        - name: 🇺🇸 米国节点 
-          type: url-test
-          url: http://www.gstatic.com/generate_204
-          interval: 60
-
-        - name: 🇯🇵 霓虹节点 
-          type: url-test
-          url: http://www.gstatic.com/generate_204
-          interval: 60
-
-        - name: 🇰🇷 韩国节点 
-          type: url-test
-          url: http://www.gstatic.com/generate_204
-          interval: 60
-
-        - name: 🇹🇼 宝岛节点 
-          type: url-test
-          url: http://www.gstatic.com/generate_204
-          interval: 60
-
-        - name: 🚧 广告拦截
-          type: select
-          proxies:
-            - DIRECT
             - REJECT
-            - PROXY
             
-        - name: 绕过大陆丨黑名单(GFWlist)
-          type: url-test
+        - name: Black List (GFWlist)
+          type: fallback
           url: http://www.gstatic.com/generate_204
-          interval: 86400
+          interval: 86400000
           proxies:
             - DIRECT
             
-        - name: 绕过大陆丨白名单(Whitelist)
-          type: url-test
+        - name: White List (Avoid Mainland)
+          type: fallback
           url: http://www.gstatic.com/generate_204
           interval: 60
           proxies:
@@ -71,20 +70,29 @@ parsers: # array
         - name: PROXY
           type: select
           proxies:
-            - 🇭🇰 香港节点
-            - 🇸🇬 新加坡节点
-            - 🇺🇸 米国节点
-            - 🇯🇵 霓虹节点
-            - 🇰🇷 韩国节点
-            - 🇹🇼 宝岛节点
+            - 🇭🇰 HK_NG_LB
+            - 🇭🇰 HK_LB
+            - 🇸🇬 SG_LB
+            - 🇺🇸 US
+            - 🇯🇵 JP
+            - 🇰🇷 KR_LB
+            - 🇹🇼 TW
         
         - name: Social Media
           type: select
           proxies:
-            - 🇸🇬 新加坡节点
-            - 🇺🇸 米国节点
-            - 🇯🇵 霓虹节点
-            - 🇰🇷 韩国节点
+            - 🇸🇬 SG_LB
+            - 🇺🇸 US
+            - 🇯🇵 JP
+            - 🇰🇷 KR_LB
+
+        - name: Proxy Strategy 
+          type: select
+          proxies:
+            - Black List (GFWlist) # 黑名单模式，意为「只有命中规则的网络流量，才使用代理」
+            - White List (Avoid Mainland) # 白名单模式，意为「没有命中规则的网络流量，统统使用代理」
+            
+
             
   # 策略组示例
        # - name: 分组名
@@ -99,140 +107,189 @@ parsers: # array
            # - 节点名称或其他分组套娃
           
       commands:
-        - proxy-groups.🇭🇰 香港节点.proxies=[]proxyNames|^(.*)((?=.*港)(?=.*IPLC))|(HK香港)+(.*)$  # 向指定策略组添加订阅中的节点名，可使用正则过滤
-        - proxy-groups.🇸🇬 新加坡节点.proxies=[]proxyNames|^(.*)((?=.*新加坡)(?=.*高级)(?=.*IEPL))|(SG新加坡)+(.*)$
-        - proxy-groups.🇺🇸 米国节点.proxies=[]proxyNames|^(.*)((?=.*美国)(?=.*IEPL))|(US美国)+(.*)$
-        - proxy-groups.🇯🇵 霓虹节点.proxies=[]proxyNames|^(.*)((?=.*日本)(?=.*IEPL))|(JP日本)+(.*)$
-        - proxy-groups.🇰🇷 韩国节点.proxies=[]proxyNames|^(.*)((?=.*韩国)(?=.*游戏))|(KR韩国)+(.*)$
-        - proxy-groups.🇹🇼 宝岛节点.proxies=[]proxyNames|^(.*)((?=.*台湾)(?=.*游戏))|(TW台湾)+(.*)$
-        # - proxy-groups.🇭🇰 香港节点.proxies.0+DIRECT # 向指定分组第一个位置添加一个 DIRECT 节点名
+        # - proxy-groups.🇭🇰 HK.proxies=[]proxyNames|^(.*)((?=.*港)(?=.*IPLC))|(HK香港)+(.*)$  # 向指定策略组添加订阅中的节点名，可使用正则过滤
+        - proxy-groups.🇭🇰 HK_NG_LB.proxies=[]proxyNames|^(?=.*Next generation AnyPath).*$
+        - proxy-groups.🇭🇰 HK_LB.proxies=[]proxyNames|^(?=.*港)(?=.*IPLC)|(?=.*Next generation AnyPath)+(.*)$
+        - proxy-groups.🇸🇬 SG_LB.proxies=[]proxyNames|^(.*)((?=.*新加坡)(?=.*高级)(?=.*IEPL))|(SG新加坡)+(.*)$
+        - proxy-groups.🇺🇸 US.proxies=[]proxyNames|^(.*)((?=.*美国)(?=.*IEPL))|(US美国)+(.*)$
+        - proxy-groups.🇯🇵 JP.proxies=[]proxyNames|^(.*)((?=.*日本)(?=.*ソフトバンク))|(JP日本)+(.*)$
+        - proxy-groups.🇰🇷 KR_LB.proxies=[]proxyNames|^(.*)(?=.*韩国)(?=.*游戏).*$
+        - proxy-groups.🇹🇼 TW.proxies=[]proxyNames|^(.*)((?=.*台湾)(?=.*游戏))|(TW台湾)+(.*)$
+        - dns.enhanced-mode="fake-ip"
+        # - proxy-groups.🇭🇰 HK.proxies.0+DIRECT # 向指定分组第一个位置添加一个 DIRECT 节点名
         # 一些可能用到的正则过滤节点示例，使分组更细致
         # []proxyNames|a                         # 包含a
         # []proxyNames|^(.*)(a|b)+(.*)$          # 包含a或b
         # []proxyNames|^(?=.*a)(?=.*b).*$        # 包含a和b
         # []proxyNames|^((?!b).)*a((?!b).)*$     # 包含a且不包含b
         # []proxyNames|^((?!b|c).)*a((?!b|c).)*$ # 包含a且不包含b或c
+        # - proxy-groups.GLOBAL=[]proxyNames|^(?=.🇭🇰 HK)(?=.🇸🇬 SG)(?=.🇺🇸 US)(?=.🇯🇵 JP)(?=.🇰🇷 KR)(?=.🇹🇼 TW).*$ 
         
   # 添加规则
       prepend-rules: # 规则由上往下遍历，如上面规则已经命中，则不再往下处理
         - RULE-SET,applications,DIRECT
         - DOMAIN,clash.razord.top,DIRECT
         - DOMAIN,yacd.haishan.me,DIRECT
-        - DOMAIN-SUFFIX,gvw.asia,DIRECT
+        - DOMAIN-SUFFIX,org.hk,🇸🇬 SG_LB
+        - DOMAIN-SUFFIX,go.kr,DIRECT
+        - RULE-SET,custom_direct,DIRECT
+        #Socical Media
         - DOMAIN-SUFFIX,tiktok.com,Social Media
-        - DST-PORT,22,DIRECT
+        #Proxy
+        # - DST-PORT,22,DIRECT
         - RULE-SET,private,DIRECT
-        - RULE-SET,reject,🚧 广告拦截
-        - RULE-SET,icloud,DIRECT #
-        - RULE-SET,apple,DIRECT # 这三个为国内可直连地址，如果希望走代理改为PROXY
+        - RULE-SET,reject,Ad Block
+        - RULE-SET,icloud,PROXY #
+        - RULE-SET,apple,PROXY #
         - RULE-SET,google,DIRECT # 
+        - RULE-SET,custom_proxy,PROXY
+        - RULE-SET,ai,🇸🇬 SG_LB
+        - RULE-SET,media,🇸🇬 SG_LB
+        - RULE-SET,battle_net,DIRECT
+        - RULE-SET,battle_net,DIRECT
         - RULE-SET,tld-not-cn,PROXY
         - RULE-SET,gfw,PROXY
         - RULE-SET,greatfire,PROXY
         - RULE-SET,telegramcidr,PROXY
         - RULE-SET,lancidr,DIRECT
         - RULE-SET,cncidr,DIRECT
-        - GEOIP,,DIRECT
+        - GEOIP,LAN,DIRECT
         - GEOIP,CN,DIRECT
         - RULE-SET,direct,DIRECT
-        - RULE-SET,proxy,🪄 代理模式
-        - MATCH,🪄 代理模式 # 规则之外的
+        - RULE-SET,proxy,Proxy Strategy
+        - MATCH,Proxy Strategy # 规则之外的
   # 添加规则集
-      mix-rule-providers: 
-        reject: # 广告域名列表
+      mix-rule-providers:
+        reject:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
           path: ./ruleset/reject.yaml
           interval: 86400
-          
-        icloud: # iCloud 域名列表
+
+        icloud:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
           path: ./ruleset/icloud.yaml
           interval: 86400
-          
-        apple: # Apple 在中国大陆可直连的域名列表
+
+        apple:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
           path: ./ruleset/apple.yaml
           interval: 86400
-          
-        google: # Google 在中国大陆可直连的域名列表
+
+        google:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt"
           path: ./ruleset/google.yaml
           interval: 86400
-          
-        proxy: # 代理域名列表
+
+        proxy:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt"
           path: ./ruleset/proxy.yaml
           interval: 86400
-          
-        direct: # 直连域名列表
+
+        direct:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
           path: ./ruleset/direct.yaml
           interval: 86400
-          
-        private: # 私有网络专用域名列表
+
+        private:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
           path: ./ruleset/private.yaml
           interval: 86400
-          
-        gfw: # GFWList 域名列表
+
+        gfw:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
           path: ./ruleset/gfw.yaml
           interval: 86400
-          
-        greatfire: # GreatFire 域名列表
+
+        greatfire:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt"
           path: ./ruleset/greatfire.yaml
           interval: 86400
-          
-        tld-not-cn: # 非中国大陆使用的顶级域名列表
+
+        tld-not-cn:
           type: http
           behavior: domain
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
           path: ./ruleset/tld-not-cn.yaml
           interval: 86400
-          
-        telegramcidr: # Telegram 使用的 IP 地址列表
+
+        telegramcidr:
           type: http
           behavior: ipcidr
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
           path: ./ruleset/telegramcidr.yaml
           interval: 86400
-          
-        cncidr: # 中国大陆 IP 地址列表
+
+        cncidr:
           type: http
           behavior: ipcidr
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
           path: ./ruleset/cncidr.yaml
           interval: 86400
-          
-        lancidr: # 局域网 IP 及保留 IP 地址列表
+
+        lancidr:
           type: http
           behavior: ipcidr
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
           path: ./ruleset/lancidr.yaml
           interval: 86400
-          
-        applications: # 需要直连的常见软件列表
+
+        applications:
           type: http
           behavior: classical
           url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
           path: ./ruleset/applications.yaml
           interval: 86400
+        
+        custom_direct:
+          type: http
+          behavior: domain
+          url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/custom_direct.txt"
+          path: ./ruleset/custom_direct.yaml
+          interval: 86400
+        
+        custom_proxy:
+          type: http
+          behavior: domain
+          url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/custom_proxy.txt"
+          path: ./ruleset/custom_proxy.yaml
+          interval: 86400
+
+        ai:
+          type: http
+          behavior: domain
+          url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/ai.txt"
+          path: ./ruleset/ai.yaml
+          interval: 86400
+
+        media:
+          type: http
+          behavior: domain
+          url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/media.txt"
+          path: ./ruleset/media.yaml
+          interval: 86400
+        
+        battle_net:
+          type: http
+          behavior: domain
+          url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/battle_net.txt"
+          path: ./ruleset/battle_net.yaml
+          interval: 86400
+
