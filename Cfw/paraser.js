@@ -22,6 +22,7 @@ module.exports.parse = (raw, { yaml }) => {
 
       //Custom rule
       {name:"Social Media",proType:"custom",type:"select",enable:true,proxy:["HK_LB","SG_LB","US_LB","JP_LB","KR_LB","TW_LB"]},
+      {name:"Battle.net",proType:"custom",type:"select",enable:true,proxy:["HK_LB","KR_LB","DIRECT"]},
 
       /**
       * Rule
@@ -41,7 +42,7 @@ module.exports.parse = (raw, { yaml }) => {
       { name: "custom_proxy", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "ai", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
       { name: "media", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
-      { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
+      { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "Battle.net" },
       { name: "tld-not-cn", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "gfw", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "greatfire", proType: "rule", type: "RULE-SET", rule: "PROXY" },
