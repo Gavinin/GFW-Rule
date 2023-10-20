@@ -1,0 +1,9 @@
+{
+  "name": "Tester",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "yaml": "^2.3.4"
+  }
+}

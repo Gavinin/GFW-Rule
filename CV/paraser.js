@@ -1,4 +1,6 @@
-module.exports.parse = (raw, { yaml }) => {
+function main(params){
+    if (!params.proxies) return params;
+    console.log(params)
     const DEFAULT_URL = "http://www.gstatic.com/generate_204"
 
     const profiles=[
@@ -28,8 +30,6 @@ module.exports.parse = (raw, { yaml }) => {
       * Rule
       * **/
       { name: "applications", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
-      { name: "clash.razord.top", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
-      { name: "yacd.haishan.me", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
       { name: "org.hk", proType: "rule", type: "DOMAIN-SUFFIX", rule: "SG_LB" },
       { name: "go.kr", proType: "rule", type: "DOMAIN-SUFFIX", rule: "DIRECT" },
       { name: "custom_direct", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
@@ -116,7 +116,7 @@ module.exports.parse = (raw, { yaml }) => {
     function groupNodeProcessor() {
         let groups = []
         profiles.forEach((profile) => {
-            if (profile.proType == "node" && profile.enable) {
+            if (profile.proType === "node" && profile.enable) {
                 groups.push(groupNodeGen(profile.name, profile.type, profile.reg))
             }
         })
@@ -126,7 +126,7 @@ module.exports.parse = (raw, { yaml }) => {
     function groupDefaultProcessor() {
         let groups = []
         profiles.forEach((profile) => {
-            if (profile.proType == "default" && profile.enable) {
+            if (profile.proType === "default" && profile.enable) {
                 groups.push(nodeStructGen(profile.name, profile.type, profile.proxy, profile.url, profile.interval))
 
             }
@@ -137,7 +137,7 @@ module.exports.parse = (raw, { yaml }) => {
     function groupCustomProcessor() {
         let groups = []
         profiles.forEach((profile) => {
-            if (profile.proType == "custom" && profile.enable) {
+            if (profile.proType === "custom" && profile.enable) {
                 groups.push(nodeStructGen(profile.name, profile.type, profile.proxy))
             }
         })
@@ -155,9 +155,9 @@ module.exports.parse = (raw, { yaml }) => {
     function ruleProcessor() {
         let rules = []
         profiles.forEach((profile) => {
-            if (profile.proType == "rule" ) {
+            if (profile.proType === "rule" ) {
                 if (profile.type!=="MATCH"){
-                    rules.push(profile.type+","+profile.name+","+profile.rule)
+                    rules.push(profile.type+","+profile.rule)
                 }else {
                     rules.push(profile.type+","+profile.name+","+profile.rule)
                 }
@@ -166,31 +166,32 @@ module.exports.parse = (raw, { yaml }) => {
         return rules
     }
     function ruleProviderProcessor() {
-        let rulesProviderz = {}
+        let rulesProviders = {}
         profiles.forEach((profile) => {
-            if (profile.proType == "rule_provider" ) {
+            if (profile.proType === "rule_provider" ) {
                 let ruleProvider = {}
                 ruleProvider.type = profile.type
                 ruleProvider.behavior = profile.behavior
                 ruleProvider.url = profile.url
                 ruleProvider.path = "./ruleset/"+profile.name+".yaml"
                 ruleProvider.interval = profile.interval
-                rulesProviderz[profile.name] = ruleProvider
+                rulesProviders[profile.name] = ruleProvider
             }
         })
 
-        return rulesProviderz
+        return rulesProviders
     }
 
-    const rawObj = yaml.parse(raw)
-    const groups = []
-    const rules = []
-    var proxyProviders = {}
-    var ruleProviders = {}
+    let rawObj = params
+    let groups = []
+    let rules = []
 
     groups.push(...groupProcessor())
     rules.push(...ruleProcessor())
-    ruleProviders = ruleProviderProcessor()
+    rawObj["rules"] = rules
+    rawObj["proxy-groups"]  = groups
+    rawObj["proxy-providers"]  = {}
+    rawObj["rule-providers"]  = ruleProviderProcessor()
 
-    return yaml.stringify({...rawObj, 'proxy-groups': groups, rules,'proxy-providers':proxyProviders,'rule-providers':ruleProviders})
+    return rawObj
 }
