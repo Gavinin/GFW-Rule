@@ -2,3 +2,4 @@ payload:
   - '+.battle.net'
   - '+.blizzard.com'
   - '+.footprint.net'
+  - '+.blz-contentstack-images.akamaized.net'
