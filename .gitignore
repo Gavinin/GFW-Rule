@@ -1,1 +1,4 @@
 Qx/private/*
+.idea/
+node_modules/
+Tester/
