@@ -13,12 +13,12 @@ module.exports.parse = (raw, { yaml }) => {
       {name:"Proxy Strategy",proType:"default",type:"select",enable:true,proxy:["Black List (GFWlist)","White List (Avoid Mainland)"]},
 
       // Custom node
-      {name:"HK_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)(?=.*港)(?=.*IPLC).*$/g},
-      {name:"SG_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*新加坡)(?=.*高级)(?=.*IEPL))|(SG新加坡)+(.*)$/g},
-      {name:"US_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*美国)(?=.*IEPL))|(US美国)+(.*)$/g},
-      {name:"JP_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*日本)(?=.*ソフトバンク))|(JP日本)+(.*)$/g},
-      {name:"KR_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)(?=.*韩国)(?=.*游戏).*$/g},
-      {name:"TW_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*台湾)(?=.*游戏))|(TW台湾)+(.*)$/g},
+      {name:"HK_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*港)(?=.*IPLC))|((?=.*Hong Kong)(?=.*Chai Wan))+(.*)$/g},
+      {name:"SG_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*新加坡)(?=.*高级)(?=.*IEPL))|(SG新加坡)|((?=.*Singapore)(?=.*Central))+(.*)$/g},
+      {name:"US_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*美国)(?=.*IEPL))|(US美国)|((?=.*United States)(?=.*Washington))+(.*)$/g},
+      {name:"JP_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*日本)(?=.*ソフトバンク))|(JP日本)|((?=.*Japan)(?=.*Tokyo))+(.*)$/g},
+      {name:"KR_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*韩国)(?=.*游戏))|((?=.*South Korea)(?=.*Seoul))+(.*)$/g},
+      {name:"TW_LB",proType:"node",type:"load-balance",enable:true,reg:/^(.*)((?=.*台湾)(?=.*游戏))|(TW台湾)|((?=.*Taiwan)(?=.*Hsinchu))+(.*)$/g},
 
       //Custom rule
       {name:"Social Media",proType:"custom",type:"select",enable:true,proxy:["HK_LB","SG_LB","US_LB","JP_LB","KR_LB","TW_LB"]},
@@ -27,7 +27,11 @@ module.exports.parse = (raw, { yaml }) => {
       /**
       * Rule
       * **/
+      { name: "34.84.234.120/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
+      { name: "59.153.40.90/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
+      { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "BattleNet" },
       { name: "applications", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
+      { name: "reddit.com", proType: "rule", type: "DOMAIN-SUFFIX", rule: "TW_LB" },
       { name: "clash.razord.top", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
       { name: "yacd.haishan.me", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
       { name: "org.hk", proType: "rule", type: "DOMAIN-SUFFIX", rule: "SG_LB" },
@@ -42,7 +46,6 @@ module.exports.parse = (raw, { yaml }) => {
       { name: "custom_proxy", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "ai", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
       { name: "media", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
-      { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "BattleNet" },
       { name: "tld-not-cn", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "gfw", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "greatfire", proType: "rule", type: "RULE-SET", rule: "PROXY" },
