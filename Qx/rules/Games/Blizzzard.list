@@ -1,8 +1,11 @@
 # > Blizzard
 # - user-agent,hearthstone*,Domestic
+
+ip-asn, 57976, Blizzzard
 host,cdp.cloud.unity3d.com,Blizzard
 host-suffix,battle.net,Blizzard
 host-suffix,battlenet.com,Blizzard
 host-suffix,blizzard.com,Blizzard
-ip-asn, 57976, Blizzzard
 host-suffix, blz-contentstack.com, Blizzzard
+host, blzmedia-a.akamaihd.net, Blizzzard
+host, blz-contentstack-images.akamaized.net, Blizzzard
