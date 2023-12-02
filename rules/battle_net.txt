@@ -3,3 +3,8 @@ payload:
   - '+.blizzard.com'
   - '+.footprint.net'
   - '+.blz-contentstack-images.akamaized.net'
+  - '+.battlenet.com'
+  - '+.blz-contentstack.com'
+  - '+.blzmedia-a.akamaihd.net'
+  - '+.actual.battle.net'
+
