@@ -27,6 +27,7 @@ module.exports.parse = (raw, { yaml }) => {
       /**
       * Rule
       * **/
+      { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "BattleNet" },
       { name: "applications", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
       { name: "clash.razord.top", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
       { name: "yacd.haishan.me", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
@@ -42,7 +43,6 @@ module.exports.parse = (raw, { yaml }) => {
       { name: "custom_proxy", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "ai", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
       { name: "media", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
-      { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "BattleNet" },
       { name: "tld-not-cn", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "gfw", proType: "rule", type: "RULE-SET", rule: "PROXY" },
       { name: "greatfire", proType: "rule", type: "RULE-SET", rule: "PROXY" },
