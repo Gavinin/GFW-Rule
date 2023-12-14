@@ -7,4 +7,5 @@ payload:
   - '+.blz-contentstack.com'
   - '+.blzmedia-a.akamaihd.net'
   - '+.actual.battle.net'
-
+  - '+.prod.actual.battle.net'
+  - '59.153.40.90/24'
