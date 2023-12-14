@@ -27,6 +27,7 @@ module.exports.parse = (raw, { yaml }) => {
       /**
       * Rule
       * **/
+      { name: "34.84.234.120/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
       { name: "59.153.40.90/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
       { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "BattleNet" },
       { name: "applications", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
