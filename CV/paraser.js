@@ -81,23 +81,20 @@ const profiles = [
     { name: "battle_net", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/battle_net.txt" },
 
 ]
-
+var rawObj = {}
 function main(params) {
     initDns(params)
     delParams(params)
 
-    const rawObj = yaml.parse(raw)
-    var proxyProviders = {}
-    var ruleProviders = {}
-
+    rawObj = params
+   
     const groups = params["proxy-groups"] = [];
-    groups.push(...groupProcessor())
+    groups.push(...groupProcessor(params))
 
     const rules = params["rules"] = [];
     rules.push(...ruleProcessor())
 
-    const ruleProviders = params["rule-providers"] = [];
-    ruleProviders = ruleProviderProcessor()
+    const ruleProviders = params["rule-providers"] = ruleProviderProcessor();
 
     console.log(params)
     return params;
@@ -114,7 +111,7 @@ function groupGen(reg) {
     return group
 }
 
-function nodeStructGen(name, type, proxies = null, testURL = null, testInterval = null) {
+function nodeStructGen(name, type, proxies, testURL = null, testInterval = null) {
     let group = {}
     group.name = name
     group.type = type
@@ -166,7 +163,7 @@ function groupCustomProcessor() {
     return groups
 }
 
-function groupProcessor() {
+function groupProcessor(params) {
     let groups = []
     groups.push(...groupNodeProcessor())
     groups.push(...groupDefaultProcessor())
@@ -181,7 +178,7 @@ function ruleProcessor() {
             if (profile.type !== "MATCH") {
                 rules.push(profile.type + "," + profile.name + "," + profile.rule)
             } else {
-                rules.push(profile.type + "," + profile.name + "," + profile.rule)
+                rules.push(profile.type + ","  + profile.rule)
             }
         }
     })
