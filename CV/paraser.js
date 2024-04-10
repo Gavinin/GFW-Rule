@@ -11,7 +11,7 @@ const profiles = [
     { name: "Proxy Strategy", proType: "default", type: "select", enable: true, proxy: ["Black List (GFWlist)", "White List (Avoid Mainland)"] },
 
     // Custom node groups
-    { name: "TMP", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*ASYN)(?=.*永久)).*$/g },
+    { name: "TMP", proType: "nodeRule", type: "select", enable: true, reg: /^(.*)((?=.*ASYN)(?=.*永久)).*$/g },
     { name: "HK_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*港)(?=.*IPLC))|((?=.*Hong Kong)(?=.*Chai Wan))+(.*)$/g },
     { name: "SG_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*新加坡)(?=.*高级)(?=.*IEPL))|(SG新加坡)|((?=.*Singapore)(?=.*Central))+(.*)$/g },
     { name: "US_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*美国)(?=.*IEPL))|(US美国)|((?=.*United States)(?=.*Washington))+(.*)$/g },
