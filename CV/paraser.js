@@ -166,8 +166,8 @@ function groupCustomProcessor() {
 
 function groupProcessor(params) {
     let groups = []
-    groups.push(...groupNodeProcessor())
     groups.push(...groupDefaultProcessor())
+    groups.push(...groupNodeProcessor())
     groups.push(...groupCustomProcessor())
     return groups
 }
