@@ -44,7 +44,7 @@ const profiles = [
     { name: "google", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
     { name: "custom_proxy", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "ai", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
-    { name: "media", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
+    { name: "media", proType: "rule", type: "RULE-SET", rule: "Social Media" },
     { name: "tld-not-cn", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "gfw", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "greatfire", proType: "rule", type: "RULE-SET", rule: "PROXY" },
