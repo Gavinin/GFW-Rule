@@ -18,9 +18,14 @@ const profiles = [
     { name: "JP_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*日本)(?=.*ソフトバンク))|(JP日本)|((?=.*Japan)(?=.*Tokyo))+(.*)$/g },
     { name: "KR_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*韩国)(?=.*游戏))|((?=.*South Korea)(?=.*Seoul))+(.*)$/g },
     { name: "TW_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*台湾)(?=.*游戏))|(TW台湾)|((?=.*Taiwan)(?=.*Hsinchu))+(.*)$/g },
+    { name: "NF_HK", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*香港)(?=.*HBO).*$/g },
+    { name: "NF_TW", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*台湾)(?=.*Netflix).*$/g },
+    { name: "NF_KR", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*韩国)(?=.*Netflix).*$/g },
+    { name: "NF_AU", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*澳大利亚)(?=.*IPLC).*$/g },
 
     //Custom rule
     { name: "Social Media", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "SG_LB", "US_LB", "JP_LB", "KR_LB", "TW_LB"] },
+    { name: "Netflix", proType: "custom", type: "select", enable: true, proxy: ["NF_HK", "NF_TW", "NF_KR", "NF_AU"] },
     { name: "BattleNet", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "KR_LB", "DIRECT"] },
 
     /**
@@ -44,7 +49,7 @@ const profiles = [
     { name: "google", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
     { name: "custom_proxy", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "ai", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
-    { name: "media", proType: "rule", type: "RULE-SET", rule: "Social Media" },
+    { name: "media", proType: "rule", type: "RULE-SET", rule: "Netflix" },
     { name: "tld-not-cn", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "gfw", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "greatfire", proType: "rule", type: "RULE-SET", rule: "PROXY" },
