@@ -27,6 +27,7 @@ const profiles = [
     { name: "Social Media", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "SG_LB", "US_LB", "JP_LB", "KR_LB", "TW_LB"] },
     { name: "Netflix", proType: "custom", type: "select", enable: true, proxy: ["NF_HK", "NF_TW", "NF_KR", "NF_AU"] },
     { name: "BattleNet", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "KR_LB", "DIRECT"] },
+    { name: "Douyin", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "KR_LB"] },
 
     /**
     * Rule
@@ -42,6 +43,7 @@ const profiles = [
     { name: "go.kr", proType: "rule", type: "DOMAIN-SUFFIX", rule: "DIRECT" },
     { name: "custom_direct", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
     { name: "tiktok.com", proType: "rule", type: "DOMAIN-SUFFIX", rule: "Social Media" },
+    { name: "douyin", proType: "rule", type: "DOMAIN-SUFFIX", rule: "Douyin" },
     { name: "private", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
     { name: "reject", proType: "rule", type: "RULE-SET", rule: "AD Block" },
     { name: "icloud", proType: "rule", type: "RULE-SET", rule: "PROXY" },
@@ -80,12 +82,12 @@ const profiles = [
     { name: "cncidr", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt" },
     { name: "lancidr", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt" },
     { name: "applications", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt" },
-    { name: "custom_direct", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/custom_direct.txt" },
-    { name: "custom_proxy", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/custom_proxy.txt" },
-    { name: "ai", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/ai.txt" },
-    { name: "media", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/media.txt" },
-    { name: "battle_net", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/science_internet/master/rules/battle_net.txt" },
-
+    { name: "custom_direct", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/GFW-Rule/master/CV/rules/custom_direct.txt" },
+    { name: "custom_proxy", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/GFW-Rule/master/CV/rules/custom_proxy.txt" },
+    { name: "ai", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/GFW-Rule/master/CV/rules/ai.txt" },
+    { name: "media", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/GFW-Rule/master/CV/rules/media.txt" },
+    { name: "battle_net", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/GFW-Rule/master/CV/rules/battle_net.txt" },
+    { name: "douyin", proType: "rule_provider", type: "http", behavior: "domain", interval: 86400, url: "https://raw.gitmirror.com/Gavinin/GFW-Rule/master/CV/rules/douyin.txt" },
 ]
 var rawObj = {}
 function main(params) {
