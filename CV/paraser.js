@@ -11,7 +11,7 @@ const profiles = [
     { name: "Proxy Strategy", proType: "default", type: "select", enable: true, proxy: ["Black List (GFWlist)", "White List (Avoid Mainland)"] },
 
     // Custom node groups
-    { name: "TMP", proType: "nodeRule", type: "select", enable: true, reg: /^(.*)((?=.*ASYN)(?=.*永久)).*$/g },
+    { name: "TMP", proType: "nodeRule", type: "select", enable: true, reg: /^(.*)((?=.*山东)(?=.*联通)).*$/g },
     { name: "HK_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*港)(?=.*IPLC))|((?=.*Hong Kong)(?=.*Chai Wan))+(.*)$/g },
     { name: "SG_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*新加坡)(?=.*高级)(?=.*IEPL))|(SG新加坡)|((?=.*Singapore)(?=.*Central))+(.*)$/g },
     { name: "US_LB", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)((?=.*美国)(?=.*IEPL))|(US美国)|((?=.*United States)(?=.*Washington))+(.*)$/g },
@@ -22,22 +22,28 @@ const profiles = [
     { name: "NF_TW", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*台湾)(?=.*Netflix).*$/g },
     { name: "NF_KR", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*韩国)(?=.*Netflix).*$/g },
     { name: "NF_AU", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*澳大利亚)(?=.*IPLC).*$/g },
+    { name: "GAME_TW", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*台湾)(?=.*游戏).*$/g },
+    { name: "GAME_KR", proType: "nodeRule", type: "load-balance", enable: true, reg: /^(.*)(?=.*韩国)(?=.*游戏).*$/g },
 
     //Custom rule
     { name: "Social Media", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "SG_LB", "US_LB", "JP_LB", "KR_LB", "TW_LB"] },
     { name: "Netflix", proType: "custom", type: "select", enable: true, proxy: ["NF_HK", "NF_TW", "NF_KR", "NF_AU"] },
-    { name: "BattleNet", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "KR_LB", "DIRECT"] },
+    { name: "BattleNet", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "GAME_KR", "DIRECT"] },
     { name: "Douyin", proType: "custom", type: "select", enable: true, proxy: ["HK_LB", "KR_LB"] },
+    { name: "Apple", proType: "custom", type: "select", enable: true, proxy: ["PROXY", "DIRECT"] },
 
     /**
     * Rule
     * **/
+    { name: "35.198.243.163/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
     { name: "34.84.234.120/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
     { name: "59.153.40.90/24", proType: "rule", type: "IP-CIDR", rule: "DIRECT" },
     { name: "battle_net", proType: "rule", type: "RULE-SET", rule: "BattleNet" },
     { name: "applications", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
+    { name: "music.apple.com", proType: "rule", type: "DOMAIN-SUFFIX", rule: "TW_LB" },
     { name: "reddit.com", proType: "rule", type: "DOMAIN-SUFFIX", rule: "TW_LB" },
     { name: "clash.razord.top", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
+    { name: "cloud.cherrycalls.com", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
     { name: "yacd.haishan.me", proType: "rule", type: "DOMAIN", rule: "DIRECT" },
     { name: "org.hk", proType: "rule", type: "DOMAIN-SUFFIX", rule: "SG_LB" },
     { name: "go.kr", proType: "rule", type: "DOMAIN-SUFFIX", rule: "DIRECT" },
@@ -46,11 +52,11 @@ const profiles = [
     { name: "douyin", proType: "rule", type: "DOMAIN-SUFFIX", rule: "Douyin" },
     { name: "private", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
     { name: "reject", proType: "rule", type: "RULE-SET", rule: "AD Block" },
-    { name: "icloud", proType: "rule", type: "RULE-SET", rule: "PROXY" },
-    { name: "apple", proType: "rule", type: "RULE-SET", rule: "PROXY" },
+    { name: "icloud", proType: "rule", type: "RULE-SET", rule: "Apple" },
+    { name: "apple", proType: "rule", type: "RULE-SET", rule: "Apple" },
     { name: "google", proType: "rule", type: "RULE-SET", rule: "DIRECT" },
     { name: "custom_proxy", proType: "rule", type: "RULE-SET", rule: "PROXY" },
-    { name: "ai", proType: "rule", type: "RULE-SET", rule: "SG_LB" },
+    { name: "ai", proType: "rule", type: "RULE-SET", rule: "KR_LB" },
     { name: "media", proType: "rule", type: "RULE-SET", rule: "Netflix" },
     { name: "tld-not-cn", proType: "rule", type: "RULE-SET", rule: "PROXY" },
     { name: "gfw", proType: "rule", type: "RULE-SET", rule: "PROXY" },
@@ -256,3 +262,4 @@ function delParams(params) {
 
 
 }
+
